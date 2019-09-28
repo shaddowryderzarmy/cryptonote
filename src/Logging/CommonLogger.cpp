@@ -80,6 +80,10 @@ void CommonLogger::setMaxLevel(Level level) {
 CommonLogger::CommonLogger(Level level) : logLevel(level), pattern("%D %T %L [%C] ") {
 }
 
+// Tokes Added this 090919
+CommonLogger::~CommonLogger() { ;
+}
+
 void CommonLogger::doLogString(const std::string& message) {
 }
 

@@ -158,6 +158,10 @@ TransfersContainer::TransfersContainer(const Currency& currency, size_t transact
   m_currency(currency),
   m_transactionSpendableAge(transactionSpendableAge) {
 }
+// Tokes Added this 091019
+TransfersContainer::~TransfersContainer() { ;
+}
+
 
 bool TransfersContainer::addTransaction(const TransactionBlockInfo& block, const ITransactionReader& tx,
   const std::vector<TransactionOutputInformationIn>& transfers) {

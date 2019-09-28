@@ -49,6 +49,14 @@ bool INodeDummyStub::removeObserver(INodeObserver* observer) {
   return observerManager.remove(observer);
 }
 
+// Tokes 091119
+INodeDummyStub::~INodeDummyStub() {
+  ;
+}
+
+
+// Tokes 091119: reinstate startHeighr
+// void INodeTrivialRefreshStub::getNewBlocks(std::vector<Crypto::Hash>&& knownBlockIds, std::vector<block_complete_entry>& newBlocks, const Callback& callback)
 void INodeTrivialRefreshStub::getNewBlocks(std::vector<Crypto::Hash>&& knownBlockIds, std::vector<block_complete_entry>& newBlocks, uint32_t& startHeight, const Callback& callback)
 {
   m_asyncCounter.addAsyncContext();
@@ -57,6 +65,10 @@ void INodeTrivialRefreshStub::getNewBlocks(std::vector<Crypto::Hash>&& knownBloc
   auto blockchain = m_blockchainGenerator.getBlockchainCopy();
   lock.unlock();
 
+/**** Tokes 091119 startHeights
+  std::thread task(std::bind(&INodeTrivialRefreshStub::doGetNewBlocks, this, std::move(knownBlockIds), std::ref(newBlocks),
+          std::move(blockchain), callback));
+*****/
   std::thread task(std::bind(&INodeTrivialRefreshStub::doGetNewBlocks, this, std::move(knownBlockIds), std::ref(newBlocks),
           std::ref(startHeight), std::move(blockchain), callback));
   task.detach();
@@ -227,9 +239,12 @@ void INodeTrivialRefreshStub::queryBlocks(std::vector<Crypto::Hash>&& knownBlock
         std::vector<BlockShortEntry>& newBlocks, uint32_t& startHeight, const Callback& callback) {
   auto resultHolder = std::make_shared<std::vector<block_complete_entry>>();
 
+  // Tokes 091119  getNewBlocks(std::move(knownBlockIds), *resultHolder, [resultHolder, callback, &newBlocks](std::error_code ec)
   getNewBlocks(std::move(knownBlockIds), *resultHolder, startHeight, [resultHolder, callback, &startHeight, &newBlocks](std::error_code ec)
   {
+    auto hold = startHeight;   // Tokes 091219
     if (ec) {
+      hold = 0;
       callback(ec);
       return;
     }

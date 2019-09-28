@@ -52,6 +52,9 @@ public:
   virtual void isSynchronized(bool& syncStatus, const Callback& callback) override { callback(std::error_code()); };
   virtual void getMultisignatureOutputByGlobalIndex(uint64_t amount, uint32_t gindex, CryptoNote::MultisignatureOutput& out, const Callback& callback) override { callback(std::error_code()); }
 
+  // Tokes 091119
+  virtual ~INodeDummyStub();
+
   void updateObservers();
 
   Tools::ObserverManager<CryptoNote::INodeObserver> observerManager;

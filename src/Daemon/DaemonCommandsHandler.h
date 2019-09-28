@@ -6,8 +6,8 @@
 
 #include "Common/ConsoleHandler.h"
 
-#include <Logging/LoggerRef.h>
-#include <Logging/LoggerManager.h>
+#include "Logging/LoggerRef.h"
+#include "Logging/LoggerManager.h"
 
 namespace CryptoNote {
 class core;

@@ -472,6 +472,11 @@ simple_wallet::simple_wallet(System::Dispatcher& dispatcher, const CryptoNote::C
   m_consoleHandler.setHandler("help", boost::bind(&simple_wallet::help, this, _1), "Show this help");
   m_consoleHandler.setHandler("exit", boost::bind(&simple_wallet::exit, this, _1), "Close wallet");
 }
+
+// Tokes Added this 091119
+simple_wallet::~simple_wallet() { ;
+}
+
 //----------------------------------------------------------------------------------------------------
 bool simple_wallet::set_log(const std::vector<std::string> &args) {
   if (args.size() != 1) {
@@ -1191,7 +1196,12 @@ int main(int argc, char* argv[]) {
       return 1;
     }
 
+    /**** Replaced below Tokes 091219
     Tools::SignalHandler::install([&wrpc, &wallet] {
+      wrpc.send_stop_signal();
+    });
+    ****/
+    Tools::SignalHandler::install([&wrpc] {
       wrpc.send_stop_signal();
     });
 

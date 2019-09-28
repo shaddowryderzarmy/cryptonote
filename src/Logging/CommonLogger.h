@@ -19,12 +19,16 @@ public:
 
   void setPattern(const std::string& pattern);
 
+// Tokes Added this 090919
+  virtual ~CommonLogger();
+
 protected:
   std::set<std::string> disabledCategories;
   Level logLevel;
   std::string pattern;
 
   CommonLogger(Level level);
+
   virtual void doLogString(const std::string& message);
 };
 

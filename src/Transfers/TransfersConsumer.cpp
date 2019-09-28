@@ -98,6 +98,10 @@ TransfersConsumer::TransfersConsumer(const CryptoNote::Currency& currency, INode
   m_node(node), m_viewSecret(viewSecret), m_currency(currency) {
   updateSyncStart();
 }
+// Tokes Added this 091019
+TransfersConsumer::~TransfersConsumer() { ;
+}
+
 
 ITransfersSubscription& TransfersConsumer::addSubscription(const AccountSubscription& subscription) {
   if (subscription.keys.viewSecretKey != m_viewSecret) {

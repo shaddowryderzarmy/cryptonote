@@ -23,7 +23,7 @@ class BlockchainSynchronizer :
 public:
 
   BlockchainSynchronizer(INode& node, const Crypto::Hash& genesisBlockHash);
-  ~BlockchainSynchronizer();
+  virtual ~BlockchainSynchronizer();
 
   // IBlockchainSynchronizer
   virtual void addConsumer(IBlockchainConsumer* consumer) override;

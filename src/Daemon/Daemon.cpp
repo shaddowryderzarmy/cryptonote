@@ -25,7 +25,7 @@
 #include "version.h"
 
 #include "Logging/ConsoleLogger.h"
-#include <Logging/LoggerManager.h>
+#include "Logging/LoggerManager.h"
 
 #if defined(WIN32)
 #include <crtdbg.h>

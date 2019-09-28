@@ -23,6 +23,7 @@ class TransfersConsumer: public IObservableImpl<IBlockchainConsumerObserver, IBl
 public:
 
   TransfersConsumer(const CryptoNote::Currency& currency, INode& node, const Crypto::SecretKey& viewSecret);
+  virtual ~TransfersConsumer();
 
   ITransfersSubscription& addSubscription(const AccountSubscription& subscription);
   // returns true if no subscribers left

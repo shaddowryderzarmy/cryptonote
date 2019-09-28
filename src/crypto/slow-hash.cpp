@@ -50,10 +50,22 @@ namespace Crypto {
   }
 
   cn_context::~cn_context() {
+    try {
+       if (munmap(data, MAP_SIZE) != 0) {
+          throw bad_alloc();
+       }
+    } catch (const std::bad_alloc) {
+      ;
+      //std::cout << "bad_allocation error"  << std::endl;
+    }
+  }
+/***
+  cn_context::~cn_context() {
     if (munmap(data, MAP_SIZE) != 0) {
       throw bad_alloc();
     }
   }
+***/
 
 #endif
 

@@ -14,6 +14,10 @@ using namespace Common;
 
 namespace CryptoNote {
 
+// Tokes Added this 091019
+SynchronizationState::~SynchronizationState() { ;
+}
+
 SynchronizationState::ShortHistory SynchronizationState::getShortHistory(uint32_t localHeight) const {
   ShortHistory history;
   uint32_t i = 0;

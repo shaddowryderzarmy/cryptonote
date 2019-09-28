@@ -205,6 +205,11 @@ namespace CryptoNote
     m_peerlist_store_interval(60*30, false) {
   }
 
+// Tokes 091319
+  NodeServer::~NodeServer() {
+    ;
+  }
+
   void NodeServer::serialize(ISerializer& s) {
     uint8_t version = 1;
     s(version, "version");

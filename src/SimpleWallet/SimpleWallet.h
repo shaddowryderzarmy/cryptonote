@@ -34,6 +34,8 @@ namespace CryptoNote
   class simple_wallet : public CryptoNote::INodeObserver, public CryptoNote::IWalletLegacyObserver, public CryptoNote::INodeRpcProxyObserver {
   public:
     simple_wallet(System::Dispatcher& dispatcher, const CryptoNote::Currency& currency, Logging::LoggerManager& log);
+    // Tokes 091119
+    virtual ~simple_wallet();
 
     bool init(const boost::program_options::variables_map& vm);
     bool deinit();

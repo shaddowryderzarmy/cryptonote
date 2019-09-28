@@ -13,6 +13,7 @@ namespace CryptoNote {
 class TransfersSubscription : public IObservableImpl < ITransfersObserver, ITransfersSubscription > {
 public:
   TransfersSubscription(const CryptoNote::Currency& currency, const AccountSubscription& sub);
+  virtual ~TransfersSubscription();
 
   SynchronizationStart getSyncStart();
   void onBlockchainDetach(uint32_t height);

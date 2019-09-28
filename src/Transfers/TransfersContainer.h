@@ -139,6 +139,7 @@ class TransfersContainer : public ITransfersContainer {
 public:
 
   TransfersContainer(const CryptoNote::Currency& currency, size_t transactionSpendableAge);
+  virtual ~TransfersContainer();
 
   bool addTransaction(const TransactionBlockInfo& block, const ITransactionReader& tx, const std::vector<TransactionOutputInformationIn>& transfers);
   bool deleteUnconfirmedTransaction(const Crypto::Hash& transactionHash);

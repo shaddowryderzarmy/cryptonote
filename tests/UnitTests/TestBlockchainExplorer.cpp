@@ -714,6 +714,7 @@ TEST_F(BlockchainExplorerTests, blockchainUpdatedEmpty) {
     const std::vector<BlockDetails>& orphanedBlocks)
   > cb = [&status, this](const std::vector<BlockDetails>& newBlocks,
   const std::vector<BlockDetails>& orphanedBlocks) {
+    auto hold = this;
     EXPECT_EQ(newBlocks.size(), 0);
     EXPECT_EQ(orphanedBlocks.size(), 0);
     status.setStatus(std::error_code());
@@ -748,6 +749,7 @@ TEST_F(BlockchainExplorerTests, blockchainUpdatedMany) {
     const std::vector<BlockDetails>& orphanedBlocks)
   > cb = [&status, &blockHashes, this, NUMBER_OF_BLOCKS](const std::vector<BlockDetails>& newBlocks,
   const std::vector<BlockDetails>& orphanedBlocks) {
+    auto hold = this;
     EXPECT_EQ(newBlocks.size(), NUMBER_OF_BLOCKS);
     EXPECT_EQ(orphanedBlocks.size(), 0);
 
@@ -775,6 +777,7 @@ TEST_F(BlockchainExplorerTests, poolUpdatedEmpty) {
     const std::vector<std::pair<Hash, TransactionRemoveReason>>& removedTransactions)
   > cb = [&status, this](const std::vector<TransactionDetails>& newTransactions,
   const std::vector<std::pair<Hash, TransactionRemoveReason>>& removedTransactions) {
+    auto hold = this;
     EXPECT_EQ(newTransactions.size(), 0);
     EXPECT_EQ(removedTransactions.size(), 0);
     status.setStatus(std::error_code());
@@ -815,6 +818,7 @@ TEST_F(BlockchainExplorerTests, poolUpdatedMany) {
       const std::vector<std::pair<Hash, TransactionRemoveReason>>& removedTransactions)
     > cb = [&status, &poolTxs, this, POOL_TX_NUMBER](const std::vector<TransactionDetails>& newTransactions,
     const std::vector<std::pair<Hash, TransactionRemoveReason>>& removedTransactions) {
+      auto hold = this;
       EXPECT_EQ(newTransactions.size(), POOL_TX_NUMBER);
       EXPECT_EQ(removedTransactions.size(), 0);
 
@@ -838,7 +842,10 @@ TEST_F(BlockchainExplorerTests, poolUpdatedMany) {
       void(const std::vector<BlockDetails>& newBlocks,
       const std::vector<BlockDetails>& orphanedBlocks)
     > cb1 = [&status, this](const std::vector<BlockDetails>& newBlocks,
-    const std::vector<BlockDetails>& orphanedBlocks) {};
+    const std::vector<BlockDetails>& orphanedBlocks) {
+         auto hold = this;
+         auto hold1 = &status;
+    };
     observer.setCallback(cb1);
 
     nodeStub.sendLocalBlockchainUpdated();
@@ -870,6 +877,7 @@ TEST_F(BlockchainExplorerTests, poolUpdatedMany) {
       const std::vector<std::pair<Hash, TransactionRemoveReason>>& removedTransactions)
     > cb = [&status, &poolTxs, this, POOL_TX_NUMBER](const std::vector<TransactionDetails>& newTransactions,
     const std::vector<std::pair<Hash, TransactionRemoveReason>>& removedTransactions) {
+      auto hold = this;
       EXPECT_EQ(newTransactions.size(), 0);
       EXPECT_EQ(removedTransactions.size(), POOL_TX_NUMBER);
 
@@ -894,6 +902,7 @@ TEST_F(BlockchainExplorerTests, poolUpdatedMany) {
       const std::vector<BlockDetails>& orphanedBlocks)
     > cb1 = [&status1, this](const std::vector<BlockDetails>& newBlocks,
     const std::vector<BlockDetails>& orphanedBlocks) {
+      auto hold = this;
       status1.setStatus(std::error_code());
     };
     observer.setCallback(cb1);
@@ -939,6 +948,8 @@ TEST_F(BlockchainExplorerTests, poolUpdatedManyNotSynchronized) {
     const std::vector<std::pair<Hash, TransactionRemoveReason>>& removedTransactions)
   > cb = [&status, &poolTxs, this, POOL_TX_NUMBER](const std::vector<TransactionDetails>& newTransactions,
   const std::vector<std::pair<Hash, TransactionRemoveReason>>& removedTransactions) {
+    auto hold = this;
+    auto hold1= &status;
     EXPECT_EQ(newTransactions.size(), POOL_TX_NUMBER);
     EXPECT_EQ(removedTransactions.size(), 0);
 
@@ -962,7 +973,10 @@ TEST_F(BlockchainExplorerTests, poolUpdatedManyNotSynchronized) {
     void(const std::vector<BlockDetails>& newBlocks,
     const std::vector<BlockDetails>& orphanedBlocks)
   > cb1 = [&status, this](const std::vector<BlockDetails>& newBlocks,
-  const std::vector<BlockDetails>& orphanedBlocks) {};
+  const std::vector<BlockDetails>& orphanedBlocks) {
+    auto hold = this;
+    auto hold1 = &status;
+  };
   observer.setCallback(cb1);
 
   nodeStub.sendLocalBlockchainUpdated();
@@ -983,6 +997,7 @@ TEST_F(BlockchainExplorerTests, unexpectedTermination) {
     const std::vector<BlockDetails>& orphanedBlocks)
   > cb = [this](const std::vector<BlockDetails>& newBlocks,
   const std::vector<BlockDetails>& orphanedBlocks) {
+    auto hold = this;
     EXPECT_EQ(newBlocks.size(), 0);
     EXPECT_EQ(orphanedBlocks.size(), 0);
   };
@@ -1004,6 +1019,7 @@ TEST_F(BlockchainExplorerTests, unexpectedExeption) {
     const std::vector<BlockDetails>& orphanedBlocks)
   > cb = [&status, this](const std::vector<BlockDetails>& newBlocks,
   const std::vector<BlockDetails>& orphanedBlocks) {
+    auto hold = this;
     EXPECT_EQ(newBlocks.size(), 0);
     EXPECT_EQ(orphanedBlocks.size(), 0);
     status.setStatus(std::error_code());
